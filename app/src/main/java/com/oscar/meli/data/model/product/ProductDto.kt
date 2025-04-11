@@ -1,4 +1,4 @@
-package com.oscar.meli.data.model.productos
+package com.oscar.meli.data.model.product
 
 data class ProductDto(
     val id: String?,

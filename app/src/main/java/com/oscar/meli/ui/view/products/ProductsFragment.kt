@@ -9,7 +9,9 @@ import androidx.fragment.app.viewModels
 import com.oscar.meli.R
 import com.oscar.meli.databinding.FragmentProductsBinding
 import com.oscar.meli.ui.viewmodel.products.ProductsViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ProductsFragment : Fragment() {
     lateinit var binding : FragmentProductsBinding
     private val viewModel : ProductsViewModel by viewModels()

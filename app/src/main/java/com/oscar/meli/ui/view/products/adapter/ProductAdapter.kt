@@ -5,20 +5,29 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.oscar.meli.databinding.DetailProductBinding
-import com.oscar.meli.ui.model.ProductPlainVm
+import com.oscar.meli.ui.model.product.ProductPlainVm
 
 class ProductAdapter(var productList: List<ProductPlainVm>) : RecyclerView.Adapter<ProductVH>() {
 
-    lateinit var binding: DetailProductBinding
+    private lateinit var binding: DetailProductBinding
+    private lateinit var deleteFavoriteProduct: (ProductPlainVm) -> Unit
+    private lateinit var selectedProduct: (ProductPlainVm) -> Unit
 
     fun updateList(newList: List<ProductPlainVm>) {
-        val productDiffUtil = ProductDiffUtil(newList =newList, oldList=productList)
+        val productDiffUtil = ProductDiffUtil(newList = newList, oldList = productList)
         val diffResult = DiffUtil.calculateDiff(productDiffUtil)
         productList = newList
         diffResult.dispatchUpdatesTo(this)
 
     }
 
+    fun setSelectedProducts(selectedProduct: (ProductPlainVm) -> Unit) {
+        this.selectedProduct = selectedProduct
+    }
+
+    fun setDeleteFavoriteProduct(deleteFavoriteProduct: (ProductPlainVm) -> Unit) {
+        this.deleteFavoriteProduct = deleteFavoriteProduct
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductVH {
         binding = DetailProductBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -28,6 +37,8 @@ class ProductAdapter(var productList: List<ProductPlainVm>) : RecyclerView.Adapt
     override fun getItemCount(): Int = productList.size
 
     override fun onBindViewHolder(holder: ProductVH, position: Int) {
-        holder.bind(productList[position])
+        holder.bind(productList[position], deleteFavoriteProduct, selectedProduct)
     }
+
+
 }

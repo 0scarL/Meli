@@ -75,4 +75,8 @@ dependencies {
     kapt(libs.androidx.room.compiler)
     implementation (libs.androidx.room.runtime)
 
+    //Glide
+    implementation (libs.glide)
+    kapt (libs.compiler)
+
 }

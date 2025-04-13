@@ -25,4 +25,8 @@ object ModuleRoom {
     @Singleton
     fun provideProductDao(db : MeliDatabase) = db.getProductDao()
 
+    @Provides
+    @Singleton
+    fun provideDetailDao(db : MeliDatabase) = db.getDetailDao()
+
 }

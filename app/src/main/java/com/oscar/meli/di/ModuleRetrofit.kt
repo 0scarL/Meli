@@ -1,7 +1,8 @@
 package com.oscar.meli.di
 
 import com.oscar.meli.data.client.retrofit.RetrofitConstant.URL_BASE
-import com.oscar.meli.data.datasource.products.ProductDataSource
+import com.oscar.meli.data.datasource.api.detail.DetailApiDataSource
+import com.oscar.meli.data.datasource.api.product.ProductApiDataSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,9 +26,15 @@ object ModuleRetrofit {
 
     @Provides
     @Singleton
-    fun providerProductDataSource(retrofit: Retrofit): ProductDataSource {
-        return retrofit.create(ProductDataSource::class.java)
+    fun providerProductDataSource(retrofit: Retrofit): ProductApiDataSource {
+        return retrofit.create(ProductApiDataSource::class.java)
 
+    }
+
+    @Provides
+    @Singleton
+    fun provideDetailDataSource(retrofit: Retrofit): DetailApiDataSource {
+        return retrofit.create(DetailApiDataSource::class.java)
     }
 
 }

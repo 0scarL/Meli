@@ -1,4 +1,4 @@
-package com.oscar.meli.data.model.product
+package com.oscar.meli.data.model.api.product
 
 data class PicturesDto(
     val id: String?,

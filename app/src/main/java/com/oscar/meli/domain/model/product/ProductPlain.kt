@@ -1,18 +1,19 @@
 package com.oscar.meli.domain.model.product
 
 import com.oscar.meli.data.db.ProductPlainEntity
-import com.oscar.meli.ui.model.ProductPlainVm
+import com.oscar.meli.ui.model.product.ProductPlainVm
 
 data class ProductPlain(
-    val id: String?,
+    val id: String,
     val name: String?,
     val brand: String?,
-    val url: String?
+    val url: String?,
+    val favorite: Boolean = false
 )
 
-fun ProductPlainVm.toDomain() = ProductPlain(id, name, brand, url)
+fun ProductPlainVm.toDomain() = ProductPlain(id, name, brand, url, favorite)
 
-fun ProductPlainEntity.toDomain() = ProductPlain(id, name, brand, url)
+fun ProductPlainEntity.toDomain() = ProductPlain(id, name, brand, url, favorite)
 
 //fun List<ProductPlainEntity>.toDomainList() = map { product -> product.toDomain() }
 

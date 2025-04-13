@@ -18,9 +18,12 @@ data class ProductPlainEntity(
     val brand: String?,
 
     @ColumnInfo(name = "image_url")
-    val url: String?
+    val url: String?,
+
+    @ColumnInfo(name = "is_favorite")
+    val favorite: Boolean = false
 )
 
-fun ProductPlain.toEntity() = ProductPlainEntity(id!!, name, brand, url)
+fun ProductPlain.toEntity() = ProductPlainEntity(id!!, name, brand, url, favorite)
 
 fun List<ProductPlain>.toEntityList(): List<ProductPlainEntity> = map { product -> product.toEntity() }

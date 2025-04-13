@@ -1,6 +1,6 @@
 package com.oscar.meli.domain.model.product
 
-import com.oscar.meli.data.model.product.PicturesDto
+import com.oscar.meli.data.model.api.product.PicturesDto
 
 data class Pictures(
     val id: String?,

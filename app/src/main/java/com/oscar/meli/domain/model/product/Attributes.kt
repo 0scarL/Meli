@@ -1,6 +1,6 @@
 package com.oscar.meli.domain.model.product
 
-import com.oscar.meli.data.model.product.AttributesDto
+import com.oscar.meli.data.model.api.product.AttributesDto
 
 data class Attributes(
     val id: String?,

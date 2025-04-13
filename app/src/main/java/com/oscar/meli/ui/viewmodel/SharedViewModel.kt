@@ -17,9 +17,15 @@ class SharedViewModel @Inject constructor() : ViewModel() {
     private val _selectedProduct = MutableLiveData<ProductPlainVm>()
     val selectedProduct: LiveData<ProductPlainVm?> = _selectedProduct
 
+    private val _productToSearch = MutableLiveData<String>()
+    val productToSearch: LiveData<String?> = _productToSearch
+
     fun selectProduct(product: ProductPlainVm) {
         _selectedProduct.value = product
 
+    }
 
+    fun productToSearch(product: String) {
+        _productToSearch.value = product
     }
 }

@@ -4,10 +4,8 @@ import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import com.oscar.meli.databinding.ActivityMainBinding
-import com.oscar.meli.ui.view.products.ProductsFragment.Companion.getProductsFragment
-import com.oscar.meli.ui.viewmodel.SharedViewModel
+import com.oscar.meli.ui.view.search.SearchFragment.Companion.getSearchFragmentInstance
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -18,12 +16,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(binding.root)
-        getFragmentInit()
+        getInitFragment()
+        binding.toolbar.title = getString(R.string.app_name)
 
     }
 
-    private fun getFragmentInit() {
-        fragmentSelector(getProductsFragment())
+    private fun getInitFragment() {
+        fragmentSelector(getSearchFragmentInstance())
     }
 
     fun fragmentSelector(fragment: Fragment) {
@@ -32,5 +31,6 @@ class MainActivity : AppCompatActivity() {
         fragmentTrasaction.addToBackStack(null)
         fragmentTrasaction.commit()
     }
+
 
 }

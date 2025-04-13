@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(binding.root)
         getInitFragment()
+
         binding.toolbar.title = getString(R.string.app_name)
 
     }

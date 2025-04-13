@@ -11,6 +11,7 @@ import com.oscar.meli.domain.usecase.product.GetLocalIdUseCase
 import com.oscar.meli.domain.usecase.product.GetProductsUseCase
 import com.oscar.meli.ui.model.product.toVm
 import com.oscar.meli.ui.model.states.ProductUiStates
+import com.oscar.meli.utils.constants.ProductOrigin
 import com.oscar.meli.utils.constants.configuration.TOKEN
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -31,9 +32,9 @@ class ProductsViewModel @Inject constructor(
     private val _uiState = MutableLiveData<ProductUiStates>()
     val uiState: LiveData<ProductUiStates> = _uiState
 
-    private val _uiStateFavorite = MutableLiveData<ProductUiStates>()
+   private val _uiStateFavorite = MutableLiveData<ProductUiStates>()
     val uiStateFavorite: LiveData<ProductUiStates> = _uiStateFavorite
-    lateinit var idFavorites: MutableList<String?>
+    var idFavorites: MutableList<String?> = mutableListOf()
 
     private val status = "active"
     private val siteId = "MCO"
@@ -69,7 +70,7 @@ class ProductsViewModel @Inject constructor(
                 .flowOn(Dispatchers.IO)
                 .collect { product ->
                     val favorites = ProductUiStates.Success(product)
-                    _uiStateFavorite.postValue(favorites)
+                    _uiStateFavorite.value = favorites
                     showLog(favorites.toString())
                 }
 
@@ -101,6 +102,15 @@ class ProductsViewModel @Inject constructor(
     private fun showLog(listaVm: String) {
         Log.d("meli resultado api", listaVm)
     }
+
+//    fun refreshLasSearch() {
+//        val source = (_uiState.value as? ProductUiStates.Success)?.source ?: return
+//
+//        when (source) {
+//            ProductOrigin.REMOTE -> getProducts(lastQuery)
+//            ProductOrigin.LOCAL -> getFavoriteProducts()
+//        }
+//    }
 
 
 }

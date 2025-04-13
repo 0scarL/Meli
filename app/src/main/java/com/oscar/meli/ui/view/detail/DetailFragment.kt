@@ -31,7 +31,7 @@ class DetailFragment : Fragment() {
     lateinit var productDetail : DetailPlainVm
 
     companion object {
-        fun getDetailFragment() = DetailFragment()
+        fun getDetailFragmentInstance() = DetailFragment()
     }
 
     private lateinit var binding: FragmentDetailBinding

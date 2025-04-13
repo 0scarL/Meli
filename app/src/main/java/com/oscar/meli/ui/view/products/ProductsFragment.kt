@@ -14,8 +14,7 @@ import com.oscar.meli.databinding.FragmentProductsBinding
 import com.oscar.meli.ui.model.product.ProductPlainVm
 import com.oscar.meli.ui.model.states.ProductUiStates
 import com.oscar.meli.ui.view.detail.DetailFragment
-import com.oscar.meli.ui.view.detail.DetailFragment.Companion.getDetailFragment
-
+import com.oscar.meli.ui.view.detail.DetailFragment.Companion.getDetailFragmentInstance
 import com.oscar.meli.ui.view.products.adapter.ProductAdapter
 import com.oscar.meli.ui.viewmodel.SharedViewModel
 import com.oscar.meli.ui.viewmodel.products.ProductsViewModel
@@ -27,13 +26,14 @@ class ProductsFragment : Fragment() {
 
     companion object {
 
-        fun getProductsFragment() = ProductsFragment()
+        fun getProductsFragmentInstance() = ProductsFragment()
     }
 
     lateinit var binding: FragmentProductsBinding
     private val viewModel: ProductsViewModel by viewModels()
     private val sharedViewModel: SharedViewModel by activityViewModels()
     private val adapter: ProductAdapter by lazy { ProductAdapter(emptyList()) }
+
 
     private val deleteFavoriteProduct: (ProductPlainVm) -> Unit =
         { product -> deleteFavoriteProduct(product) }
@@ -53,7 +53,7 @@ class ProductsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setAdapter()
         getLocalProductId()
-        getProducts()
+        setProducToSearchObserver()
         setProductObserver()
         setFavoriteObserver()
         setListeners()
@@ -63,6 +63,14 @@ class ProductsFragment : Fragment() {
         binding.productAdapter.adapter = this.adapter
         this.adapter.setDeleteFavoriteProduct(deleteFavoriteProduct)
         this.adapter.setSelectedProducts(selectedProduct)
+    }
+
+    private fun setProducToSearchObserver() {
+        sharedViewModel.productToSearch.observe(viewLifecycleOwner, Observer { product ->
+            if (product != null) {
+                getProducts(product)
+            }
+        })
     }
 
 
@@ -117,12 +125,12 @@ class ProductsFragment : Fragment() {
 
     private fun getSelectedProduct(selectedProduct: ProductPlainVm) {
         sharedViewModel.selectProduct(selectedProduct)
-        launchDetailFragment()
+        launchDetailFragment(getDetailFragmentInstance())
 
     }
 
-    private fun launchDetailFragment() {
-        (activity as? MainActivity)?.fragmentSelector(getDetailFragment())
+    private fun launchDetailFragment(fragment: DetailFragment) {
+        (activity as? MainActivity)?.fragmentSelector(fragment)
 //        val fragment = DetailFragment.getDetailFragment()
 //        val bundle = Bundle()
 //        bundle.putSerializable("selectedProduct", selectedProduct)
@@ -140,8 +148,8 @@ class ProductsFragment : Fragment() {
         this.adapter.updateList(newList)
     }
 
-    private fun getProducts() {
-        viewModel.getProducts("balon")
+    private fun getProducts(productToSearch: String) {
+        viewModel.getProducts(productToSearch)
     }
 
 
@@ -164,6 +172,8 @@ class ProductsFragment : Fragment() {
     private fun getLocalProductId(){
         viewModel.getLocalId()
     }
+
+
 
 
 }

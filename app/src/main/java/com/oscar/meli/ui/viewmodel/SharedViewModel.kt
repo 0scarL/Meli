@@ -1,0 +1,25 @@
+package com.oscar.meli.ui.viewmodel
+
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.oscar.meli.ui.model.product.ProductPlainVm
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
+import javax.inject.Inject
+
+@HiltViewModel
+class SharedViewModel @Inject constructor() : ViewModel() {
+
+    private val _selectedProduct = MutableLiveData<ProductPlainVm>()
+    val selectedProduct: LiveData<ProductPlainVm?> = _selectedProduct
+
+    fun selectProduct(product: ProductPlainVm) {
+        _selectedProduct.value = product
+
+
+    }
+}

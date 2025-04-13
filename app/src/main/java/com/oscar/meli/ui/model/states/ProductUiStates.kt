@@ -1,4 +1,7 @@
-package com.oscar.meli.ui.model
+package com.oscar.meli.ui.model.states
+
+import com.oscar.meli.ui.model.detail.DetailPlainVm
+import com.oscar.meli.ui.model.product.ProductPlainVm
 
 sealed class ProductUiStates {
     object Loading : ProductUiStates()

@@ -1,4 +1,4 @@
-package com.oscar.meli.data.model.product
+package com.oscar.meli.data.model.api.product
 
 import com.google.gson.annotations.SerializedName
 

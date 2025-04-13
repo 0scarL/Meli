@@ -54,7 +54,7 @@ class DetailViewModel @Inject constructor(
         }
     }
 
-    fun saveDetail(detail: DetailPlainVm) {// TODO:  }
+    fun saveDetail(detail: DetailPlainVm) {
         viewModelScope.launch {
             try{
                 insertDetailUseCase(detail.toDomain())

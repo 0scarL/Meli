@@ -4,8 +4,10 @@ import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import com.oscar.meli.databinding.ActivityMainBinding
 import com.oscar.meli.ui.view.products.ProductsFragment.Companion.getProductsFragment
+import com.oscar.meli.ui.viewmodel.SharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -24,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         fragmentSelector(getProductsFragment())
     }
 
-    private fun fragmentSelector(fragment: Fragment) {
+    fun fragmentSelector(fragment: Fragment) {
         val fragmentTrasaction = supportFragmentManager.beginTransaction()
         fragmentTrasaction.replace(R.id.fragment_container, fragment)
         fragmentTrasaction.addToBackStack(null)

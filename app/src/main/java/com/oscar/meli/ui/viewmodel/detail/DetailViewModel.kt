@@ -8,6 +8,7 @@ import com.oscar.meli.domain.model.detalle.toDomain
 import com.oscar.meli.domain.model.product.toDomain
 import com.oscar.meli.domain.usecase.detail.GetProducDetailUseCase
 import com.oscar.meli.domain.usecase.detail.InsertDetailUseCase
+import com.oscar.meli.domain.usecase.product.DeleteProductUseCase
 import com.oscar.meli.domain.usecase.product.InsertProductUseCase
 import com.oscar.meli.ui.model.detail.DetailPlainVm
 import com.oscar.meli.ui.model.detail.toVm
@@ -22,7 +23,8 @@ import javax.inject.Inject
 class DetailViewModel @Inject constructor(
     private val insertProductUseCase: InsertProductUseCase,
     private val getProductDetailUseCase: GetProducDetailUseCase,
-    private val insertDetailUseCase: InsertDetailUseCase
+    private val insertDetailUseCase: InsertDetailUseCase,
+    private val deleteProductUseCase: DeleteProductUseCase
 ) : ViewModel() {
     private val _uiStateDetail = MutableLiveData<DetailUiState>()
     val uiStateDetail: LiveData<DetailUiState> = _uiStateDetail
@@ -62,5 +64,9 @@ class DetailViewModel @Inject constructor(
                 _uiStateDetail.value = DetailUiState.Error(e.message.toString())
             }
         }
+    }
+
+    fun deleteProduct(id: String){
+
     }
 }

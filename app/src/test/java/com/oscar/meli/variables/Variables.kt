@@ -3,6 +3,7 @@ package com.oscar.meli.variables
 import com.oscar.meli.data.db.ProductPlainEntity
 import com.oscar.meli.domain.model.detalle.DetailPlain
 import com.oscar.meli.domain.model.product.ProductPlain
+import com.oscar.meli.ui.model.product.ProductPlainVm
 
 object Variables {
     val exampleDetailFav = DetailPlain(
@@ -85,4 +86,15 @@ object Variables {
             favorite = true,
             permalink = "samsung-galaxy-2023"
         )
+
+    val exampleProdcut = ProductPlainVm(
+    id = "e003",
+    name = "Gafas de Sol",
+    brand = "Ray-Ban",
+    url = "https://example.com/images/gafas_rayban.jpg",
+    favorite = true
+    )
+
+
+
 }

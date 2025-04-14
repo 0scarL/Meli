@@ -17,6 +17,8 @@ hilt = "2.49"
 retrofit = "2.9.0"
 roomKtx = "2.6.1"
 viewmodel = "2.6.2"
+mockk="1.12.2"
+arch="2.1.0"
 
 [libraries]
 androidx-activity-ktx = { group = "androidx.activity",name="activity-ktx", version.ref = "activityKtx" }
@@ -47,6 +49,10 @@ kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx",name="kotlinx-corout
 androidx-room-compiler = { group = "androidx.room",name="room-compiler", version.ref = "roomKtx" }
 androidx-room-ktx = { group = "androidx.room",name="room-ktx", version.ref = "roomKtx" }
 androidx-room-runtime = { group = "androidx.room",name="room-runtime", version.ref = "roomKtx" }
+#Mockk
+android-mockk= {group="io.mockk",name="mockk",version.ref="mockk"}
+#arch
+arch-test = {group="androidx.arch.core", name="core-testing", version.ref="arch"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

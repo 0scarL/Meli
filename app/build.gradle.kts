@@ -79,4 +79,10 @@ dependencies {
     implementation (libs.glide)
     kapt (libs.compiler)
 
+    //Mockk
+    testImplementation(libs.android.mockk)
+
+    //arch
+    testImplementation(libs.arch.test)
 }
+

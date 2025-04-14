@@ -61,7 +61,6 @@ class ProductsFragment : Fragment() {
 
     private fun setAdapter() {
         binding.productAdapter.adapter = this.adapter
-        this.adapter.setDeleteFavoriteProduct(deleteFavoriteProduct)
         this.adapter.setSelectedProducts(selectedProduct)
     }
 
@@ -89,6 +88,7 @@ class ProductsFragment : Fragment() {
                 is ProductUiStates.Error -> {
                     setOffLoading()
                     showErrorMessage(states.message)
+                    getFavorites()
                 }
 
             }

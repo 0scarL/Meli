@@ -11,7 +11,6 @@ class ProductVH(private val binding: DetailProductBinding) : RecyclerView.ViewHo
 
         fun bind(
             product: ProductPlainVm,
-            onClickFavorite: (ProductPlainVm) -> Unit,
             selectedProduct: (ProductPlainVm) -> Unit
         ) {
             binding.apply {
@@ -22,32 +21,13 @@ class ProductVH(private val binding: DetailProductBinding) : RecyclerView.ViewHo
                 if (product.favorite) {buttonFav.visibility = View.VISIBLE}
                 else buttonFav.visibility = View.GONE
             }
-            deleteFavorite(product, onClickFavorite)
             listenerSelected(product, selectedProduct)
-
-
 
     }
 
     private fun listenerSelected(product: ProductPlainVm, selectedProduct: (ProductPlainVm) -> Unit) {
         binding.cardProduct.setOnClickListener{ selectedProduct(product)}
     }
-
-    private fun deleteFavorite(product: ProductPlainVm,
-                               onClickFavorite: (ProductPlainVm) -> Unit) {
-        binding.buttonFav.setOnClickListener {
-            onClickFavorite(product)
-        }
-    }
-
-
-    private fun isFavorite(favorite: Boolean) {
-        if (favorite) {
-            binding.buttonFav.visibility = View.VISIBLE
-            }
-        else binding.buttonFav.visibility = View.GONE
-        }
-
 
     private fun renderImage(url: String?){
         Glide.with(binding.imgProduct.context)

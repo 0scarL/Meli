@@ -4,6 +4,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="orange">#FF5722</color>
     <color name="black">#FA0F0E0E</color>
-    <color name="yellow">#CC9C0C</color>
+    <color name="yellow">#DEAB10</color>
+    <color name="red">#DE2A3F</color>
+    <color name="card_net_error">#C1E4D2B2</color>
 
 </resources>

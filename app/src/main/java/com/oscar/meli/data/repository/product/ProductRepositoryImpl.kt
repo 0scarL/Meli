@@ -1,6 +1,7 @@
 package com.oscar.meli.data.repository.product
 
 import com.oscar.meli.data.datasource.api.product.ProductApiDataSource
+import com.oscar.meli.data.datasource.db.DetailDao
 import com.oscar.meli.data.datasource.db.ProductDao
 import com.oscar.meli.data.db.ProductPlainEntity
 import kotlinx.coroutines.Dispatchers
@@ -11,7 +12,7 @@ import javax.inject.Inject
 
 class ProductRepositoryImpl @Inject constructor(
     private val productDataSource: ProductApiDataSource,
-    private val productDao: ProductDao
+    private val productDao: ProductDao,
 
 ) : ProductRepository {
 
@@ -23,7 +24,10 @@ class ProductRepositoryImpl @Inject constructor(
     }
 
     override suspend fun deleteProduct(id :String) {
-        withContext(Dispatchers.IO){productDao.deleteProduct(id)}
+        withContext(Dispatchers.IO){
+            productDao.deleteProduct(id)
+
+        }
     }
 
     override fun getFavoriteProducts(): Flow<List<ProductPlainEntity>> = flow {

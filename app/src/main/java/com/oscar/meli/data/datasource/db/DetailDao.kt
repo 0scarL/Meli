@@ -14,4 +14,8 @@ interface DetailDao {
 
     @Query("SELECT * FROM detail_table WHERE id = :id")
     suspend fun getDetailById(id: String): DetailEntity
+
+    @Query("Delete FROM detail_table WHERE id = :id")
+    suspend fun deleteDetail(id: String)
+
 }

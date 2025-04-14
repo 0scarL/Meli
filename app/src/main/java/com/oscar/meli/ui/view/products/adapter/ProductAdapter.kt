@@ -10,7 +10,6 @@ import com.oscar.meli.ui.model.product.ProductPlainVm
 class ProductAdapter(var productList: List<ProductPlainVm>) : RecyclerView.Adapter<ProductVH>() {
 
     private lateinit var binding: DetailProductBinding
-    private lateinit var deleteFavoriteProduct: (ProductPlainVm) -> Unit
     private lateinit var selectedProduct: (ProductPlainVm) -> Unit
 
     fun updateList(newList: List<ProductPlainVm>) {
@@ -25,11 +24,7 @@ class ProductAdapter(var productList: List<ProductPlainVm>) : RecyclerView.Adapt
         this.selectedProduct = selectedProduct
     }
 
-    fun setDeleteFavoriteProduct(deleteFavoriteProduct: (ProductPlainVm) -> Unit) {
-        this.deleteFavoriteProduct = deleteFavoriteProduct
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductVH {
+   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductVH {
         binding = DetailProductBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ProductVH(binding)
     }
@@ -37,7 +32,7 @@ class ProductAdapter(var productList: List<ProductPlainVm>) : RecyclerView.Adapt
     override fun getItemCount(): Int = productList.size
 
     override fun onBindViewHolder(holder: ProductVH, position: Int) {
-        holder.bind(productList[position], deleteFavoriteProduct, selectedProduct)
+        holder.bind(productList[position], selectedProduct)
     }
 
 

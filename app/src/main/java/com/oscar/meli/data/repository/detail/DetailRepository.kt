@@ -9,4 +9,6 @@ interface DetailRepository {
 
     suspend fun insertDetail(detail: DetailEntity)
 
+    suspend fun deleteDetail(id: String)
+
 }

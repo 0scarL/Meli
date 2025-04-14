@@ -2,6 +2,7 @@ package com.oscar.meli.ui.viewmodel.detail
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.oscar.meli.domain.model.product.toDomain
+import com.oscar.meli.domain.usecase.detail.DeleteDetailProductUseCase
 import com.oscar.meli.domain.usecase.detail.GetProducDetailUseCase
 import com.oscar.meli.domain.usecase.detail.InsertDetailUseCase
 import com.oscar.meli.domain.usecase.product.DeleteProductUseCase
@@ -39,7 +40,7 @@ class DetailViewModelTest{
     private lateinit var insertProductUseCase: InsertProductUseCase
 
     @RelaxedMockK
-    private lateinit var deleteProductUseCase: DeleteProductUseCase
+    private lateinit var deleteProductUseCase: DeleteDetailProductUseCase
 
     private lateinit var detailViewModel : DetailViewModel
 
@@ -88,7 +89,6 @@ class DetailViewModelTest{
 
         //then
         coVerify (exactly = 1) { insertProductUseCase(product.toDomain()) }
-
 
     }
 

@@ -26,9 +26,11 @@ class DetailRepositoryImp @Inject constructor(
     }
 
 
-
-
         override suspend fun insertDetail(detail: DetailEntity) {
             withContext(Dispatchers.IO) { detailDao.insertDetail(detail) }
         }
+
+    override suspend fun deleteDetail(id: String) {
+        withContext(Dispatchers.IO) {detailDao.deleteDetail(id)}
     }
+}

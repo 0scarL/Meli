@@ -16,7 +16,6 @@ interface ProductRepository {
 
     suspend fun deleteProduct(id : String)
 
-
     suspend fun getLocalId(): Flow<List<String>>
 
 

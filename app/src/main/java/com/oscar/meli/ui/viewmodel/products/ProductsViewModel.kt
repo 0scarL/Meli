@@ -19,6 +19,8 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
+import java.io.IOException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -45,7 +47,7 @@ class ProductsViewModel @Inject constructor(
             _uiState.value = ProductUiStates.Loading
             try {
                 val plainResult = getProductsUseCase(TOKEN, status, siteId, query)
-                Log.d("meli", plainResult.toString())
+
                 plainResult.forEach { product ->
                     if (idFavorites.contains(product.id)) {
                         product.favorite = true
@@ -53,8 +55,11 @@ class ProductsViewModel @Inject constructor(
                 }
                 _uiState.value = ProductUiStates.Success(plainResult)
                 showLog(plainResult.toString())
-            } catch (e: Exception) {
+            }catch (e: Exception) {
                 _uiState.value = ProductUiStates.Error(e.message.toString())
+            }catch (e: IOException) {
+                // 🔌 Error de red (sin conexión, timeout, etc.)
+                _uiState.value = ProductUiStates.Error("Error de red. Verifica tu conexión a internet.")
             }
 
         }

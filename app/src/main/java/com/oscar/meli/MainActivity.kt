@@ -22,9 +22,21 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    /**
+     * Obtiene el fragmento inicial que se debe mostrar en la actividad.
+     * En este caso, obtiene una instancia del fragmento de búsqueda.
+     */
+
     private fun getInitFragment() {
         fragmentSelector(getSearchFragmentInstance())
     }
+
+    /**
+     * Cambia el fragmento mostrado en el contenedor de fragmentos.
+     * Este método reemplaza el fragmento actual por el fragmento proporcionado.
+     *
+     * @param fragment El fragmento a mostrar.
+     */
 
     fun fragmentSelector(fragment: Fragment) {
         val fragmentTrasaction = supportFragmentManager.beginTransaction()

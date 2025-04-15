@@ -10,7 +10,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-
+/**
+ * ViewModel compartido entre diferentes fragments o componentes.
+ * Se utiliza para mantener y compartir datos comunes como el producto seleccionado
+ * o el texto de búsqueda actual, sin necesidad de pasarlos directamente entre fragments.
+ */
 @HiltViewModel
 class SharedViewModel @Inject constructor() : ViewModel() {
 

@@ -15,6 +15,5 @@ fun ProductPlainVm.toDomain() = ProductPlain(id, name, brand, url, favorite)
 
 fun ProductPlainEntity.toDomain() = ProductPlain(id, name, brand, url, favorite)
 
-//fun List<ProductPlainEntity>.toDomainList() = map { product -> product.toDomain() }
 
 fun List<ProductPlainVm>.toDomainList() = map { product -> product.toDomain() }

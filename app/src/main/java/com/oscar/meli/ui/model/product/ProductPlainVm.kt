@@ -17,6 +17,11 @@ data class ProductPlainVm(
 fun List<Product>.toVmList(): List<ProductPlainVm> = map { product -> product.toVm() }
 
 
+/**
+ * Extensión de la clase `Product` para convertirla a un objeto `ProductPlainVm`.
+ *
+ * @return Un objeto `ProductPlainVm` que contiene los detalles del producto.
+ */
 fun Product.toVm(): ProductPlainVm {
     val brand = attributes.firstOrNull { attribute -> attribute.id == "BRAND" }?.value
     val imageUrl = pictures.firstOrNull()?.url
@@ -31,7 +36,12 @@ fun Product.toVm(): ProductPlainVm {
 
 fun ProductPlain.toVm() = ProductPlainVm(id, name, brand, url, favorite)
 
-
+/**
+ * Extensión de la clase `DetailPlainVm` para convertirla a un objeto `ProductPlainVm`.
+ *
+ * @param isFavorite Valor opcional para marcar si el producto es favorito.
+ * @return Un objeto `ProductPlainVm` con los detalles del producto.
+ */
 fun DetailPlainVm.toProductPlainVm(isFavorite: Boolean = false): ProductPlainVm {
     return ProductPlainVm(
         id = this.id,
@@ -42,7 +52,7 @@ fun DetailPlainVm.toProductPlainVm(isFavorite: Boolean = false): ProductPlainVm 
     )
 }
 
-//fun List<ProductPlain>.toVmList() = map { it.toVm() }
+
 
 
 

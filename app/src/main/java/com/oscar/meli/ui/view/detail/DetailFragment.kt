@@ -19,8 +19,20 @@ import com.oscar.meli.ui.model.product.toProductPlainVm
 import com.oscar.meli.ui.model.states.DetailUiState
 import com.oscar.meli.ui.viewmodel.SharedViewModel
 import com.oscar.meli.ui.viewmodel.detail.DetailViewModel
+import com.oscar.meli.utils.constants.UiConstants.LABEL_BRAND
+import com.oscar.meli.utils.constants.UiConstants.LABEL_CATALOG
+import com.oscar.meli.utils.constants.UiConstants.LABEL_DOMAIN
+import com.oscar.meli.utils.constants.UiConstants.LABEL_FAMILY
+import com.oscar.meli.utils.constants.UiConstants.LABEL_FAVORITE
+import com.oscar.meli.utils.constants.UiConstants.LABEL_ID
+import com.oscar.meli.utils.constants.UiConstants.LABEL_SITE
+import com.oscar.meli.utils.constants.UiConstants.LABEL_STATUS
+import com.oscar.meli.utils.constants.UiConstants.MELI_FRAGMENT
 import com.oscar.meli.utils.constants.UiConstants.MJS_ERROR
 import com.oscar.meli.utils.constants.UiConstants.MJS_FIELD_EMPTY
+import com.oscar.meli.utils.constants.UiConstants.TAG_SELECTEED_PRODUCT
+import com.oscar.meli.utils.constants.UiConstants.TEXT_NO
+import com.oscar.meli.utils.constants.UiConstants.TEXT_YES
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -92,30 +104,6 @@ class DetailFragment : Fragment() {
         deleteFavorite(productDetail.id)
     }
 
-//    private fun onClickFavorite(currentState: Boolean) {
-//        if (currentState) {
-//            // Se va a marcar como favorito
-//            productDetail.favorite = true
-//            saveProduct(convertDetailToProduct(productDetail))
-//            saveDetails(productDetail)
-//            iconVisibility(View.VISIBLE)
-//
-//            // Desmarcar manualmente
-//            binding.checkFav.isChecked = false
-//        } else {
-//            // Se va a quitar de favoritos
-//            productDetail.favorite = false
-//            deleteFavorite(productDetail.id)
-//            iconVisibility(View.GONE)
-//
-//            // Marcar manualmente
-//            binding.checkFav.isChecked = true
-//        }
-//    }
-
-//    private fun iconVisibility(visibility: Int) {
-//        binding.iconFav.visibility = visibility
-//    }
 
     private fun deleteFavorite(id: String) {
         viewModel.deleteProduct(id)
@@ -182,24 +170,11 @@ class DetailFragment : Fragment() {
     }
 
 
-//   fun setObserverSelected(){
-//       lifecycleScope.launchWhenStarted {
-//           sharedViewModel.selectedProduct.collect { selectedProduct ->
-//               selectedProduct?.let {
-//                   getProductDetail(selectedProduct.id)
-//                   Log.d("meli DetailFragment", "Producto seleccionado: ${selectedProduct.name}")
-//               }
-//           }
-//       }
-//        setObserverGetDetail()
-//    }
-
-
     private fun setObserverSelected() {
         sharedViewModel.selectedProduct.observe(viewLifecycleOwner, Observer { selectedProduct ->
             selectedProduct?.let {
                 getProductDetail(selectedProduct.id, selectedProduct.favorite)
-                Log.d("meli DetailFragment", "selected: ${selectedProduct.name}")
+                Log.d(MELI_FRAGMENT, TAG_SELECTEED_PRODUCT +selectedProduct.name )
 
             }
 
@@ -212,7 +187,7 @@ class DetailFragment : Fragment() {
     }
 
     private fun showErrorMessage(message: String) {
-        Toast.makeText(context, MJS_ERROR + "$message", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, MJS_ERROR + message, Toast.LENGTH_SHORT).show()
     }
 
     private fun setOnLoading() {
@@ -244,15 +219,15 @@ class DetailFragment : Fragment() {
 
     private fun getRenderText(producto: DetailPlainVm) =
         """
-    ID: ${producto.id}
-    Catálogo: ${producto.idCatalogo ?: MJS_FIELD_EMPTY}
-    Estado: ${producto.status ?: MJS_FIELD_EMPTY}
-    Dominio: ${producto.idDomain ?: MJS_FIELD_EMPTY}
-    Familia: ${producto.family ?: MJS_FIELD_EMPTY}
-    Marca: ${producto.brand ?: MJS_FIELD_EMPTY}
-    Favorito: ${if (producto.favorite) "Sí" else "No"}
-    Sitio de origen: ${producto.permalink}
-""".trimIndent()
+        $LABEL_ID: ${producto.id}
+        $LABEL_CATALOG: ${producto.idCatalogo ?: MJS_FIELD_EMPTY}
+        $LABEL_STATUS: ${producto.status ?: MJS_FIELD_EMPTY}
+        $LABEL_DOMAIN: ${producto.idDomain ?: MJS_FIELD_EMPTY}
+        $LABEL_FAMILY: ${producto.family ?: MJS_FIELD_EMPTY}
+        $LABEL_BRAND: ${producto.brand ?: MJS_FIELD_EMPTY}
+        $LABEL_FAVORITE: ${if (producto.favorite) TEXT_YES else TEXT_NO}
+        $LABEL_SITE: ${producto.permalink}
+    """.trimIndent()
 
 
 }

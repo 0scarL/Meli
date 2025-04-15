@@ -5,11 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.oscar.meli.MainActivity
 import com.oscar.meli.databinding.FragmentSearchBinding
 import com.oscar.meli.ui.view.products.ProductsFragment.Companion.getProductsFragmentInstance
 import com.oscar.meli.ui.viewmodel.SharedViewModel
+import com.oscar.meli.utils.constants.UiConstants.MJS_ERROR
+import com.oscar.meli.utils.constants.UiConstants.MSJ_ERROR_EMPTY_SEARCH
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -29,7 +32,12 @@ class SearchFragment : Fragment() {
     ): View? {
         binding = FragmentSearchBinding.inflate(layoutInflater)
         // Inflate the layout for this fragment
+        focusRequest()
         return binding.root
+    }
+
+    private fun focusRequest() {
+        binding.editTextSearch.requestFocus()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -42,7 +50,13 @@ class SearchFragment : Fragment() {
     }
 
     private fun goToSearch() {
-        val product = binding.editTextSearch.text.toString()
+        val product = binding.editTextSearch.text.toString().trim()
+
+        if (product.isEmpty()) {
+            showToast(MSJ_ERROR_EMPTY_SEARCH)
+            return
+        }
+
         launchDetailFragment(getProductsFragmentInstance())
         sharedViewModel.productToSearch(product)
     }
@@ -50,6 +64,8 @@ class SearchFragment : Fragment() {
     private fun launchDetailFragment(getFragment: Fragment) {
         (activity as? MainActivity)?.fragmentSelector(getFragment)    }
 
-
+    private fun showToast(message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+    }
 
 }

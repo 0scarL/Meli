@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".ui.view.products.ProductsFragment">
 
 
@@ -45,8 +46,7 @@
         android:layout_marginEnd="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:tint="@color/orange"
-        android:src="@drawable/icon_show_favorite"/>
+        android:src="@drawable/btn_get_favorites"/>
 
 
 

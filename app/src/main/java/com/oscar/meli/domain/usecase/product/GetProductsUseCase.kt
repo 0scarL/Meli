@@ -6,6 +6,7 @@ import com.oscar.meli.ui.model.product.ProductPlainVm
 import com.oscar.meli.ui.model.product.toVmList
 import javax.inject.Inject
 
+
 class GetProductsUseCase @Inject constructor(
    private val repository: ProductRepository) {
 

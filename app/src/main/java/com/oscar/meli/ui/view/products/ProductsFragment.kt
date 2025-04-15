@@ -19,6 +19,8 @@ import com.oscar.meli.ui.view.products.adapter.ProductAdapter
 import com.oscar.meli.ui.viewmodel.SharedViewModel
 import com.oscar.meli.ui.viewmodel.products.ProductsViewModel
 import com.oscar.meli.utils.constants.UiConstants.MJS_ERROR
+import com.oscar.meli.utils.constants.UiConstants.MSJ_LISTA_VACIA
+import com.oscar.meli.utils.constants.showMessage
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -34,9 +36,6 @@ class ProductsFragment : Fragment() {
     private val sharedViewModel: SharedViewModel by activityViewModels()
     private val adapter: ProductAdapter by lazy { ProductAdapter(emptyList()) }
 
-
-    private val deleteFavoriteProduct: (ProductPlainVm) -> Unit =
-        { product -> deleteFavoriteProduct(product) }
 
     private val selectedProduct: (ProductPlainVm) -> Unit =
         { product -> getSelectedProduct(product) }
@@ -59,6 +58,7 @@ class ProductsFragment : Fragment() {
         setListeners()
     }
 
+
     private fun setAdapter() {
         binding.productAdapter.adapter = this.adapter
         this.adapter.setSelectedProducts(selectedProduct)
@@ -72,6 +72,11 @@ class ProductsFragment : Fragment() {
         })
     }
 
+    /**
+     * Establece un observador para el estado de los productos en el `viewModel`.
+     * Cuando el estado cambia, se actualiza la interfaz de usuario en función de
+     * si los productos están cargando, se han cargado con éxito o ha ocurrido un error.
+     */
 
     private fun setProductObserver() {
         viewModel.uiState.observe(viewLifecycleOwner, Observer { states ->
@@ -82,6 +87,10 @@ class ProductsFragment : Fragment() {
 
                 is ProductUiStates.Success -> {
                     setOffLoading()
+                    if (states.products.isEmpty()) {
+                        showToast(MSJ_LISTA_VACIA)
+                        return@Observer
+                    }
                     updateAdapter(states.products)
                 }
 
@@ -97,6 +106,12 @@ class ProductsFragment : Fragment() {
         })
     }
 
+    /**
+     * Establece un observador para el estado de los productos favoritos en el `viewModel`.
+     * Cuando el estado cambia, se actualiza la interfaz de usuario según si los productos favoritos
+     * están cargando, se han cargado con éxito o ha ocurrido un error.
+     */
+
     private fun setFavoriteObserver() {
         viewModel.uiStateFavorite.observe(viewLifecycleOwner, Observer { favStates ->
             when (favStates) {
@@ -106,21 +121,21 @@ class ProductsFragment : Fragment() {
 
                 is ProductUiStates.Success -> {
                     setOffLoading()
+                    if (favStates.products.isEmpty()) {
+                        showToast(MSJ_LISTA_VACIA)
+                        return@Observer
+                    }
                     updateAdapter(favStates.products)
                 }
 
                 is ProductUiStates.Error -> {
                     setOffLoading()
                     showErrorMessage(favStates.message)
+
+
                 }
             }
         })
-    }
-
-    private fun deleteFavoriteProduct(favoriteProduct: ProductPlainVm) {
-        if (favoriteProduct.favorite) {
-            favoriteProduct.id?.let { viewModel.deleteFavoriteProduct(favoriteProduct.id) }
-        }
     }
 
     private fun getSelectedProduct(selectedProduct: ProductPlainVm) {
@@ -131,15 +146,16 @@ class ProductsFragment : Fragment() {
 
     private fun launchDetailFragment(fragment: DetailFragment) {
         (activity as? MainActivity)?.fragmentSelector(fragment)
-//        val fragment = DetailFragment.getDetailFragment()
-//        val bundle = Bundle()
-//        bundle.putSerializable("selectedProduct", selectedProduct)
-//        fragment.arguments = bundle
-//        (activity as? MainActivity)?.fragmentSelector(fragment)
+    }
+
+
+    private fun showErrorMessage(message: String) {
+        context?.let { showMessage(it, message + MJS_ERROR) }
 
     }
 
-    private fun showErrorMessage(message: String) {
+
+    private fun showToast(message: String) {
         Toast.makeText(context, MJS_ERROR + "$message", Toast.LENGTH_SHORT).show()
     }
 
@@ -169,11 +185,9 @@ class ProductsFragment : Fragment() {
         viewModel.getFavoriteProducts()
     }
 
-    private fun getLocalProductId(){
+    private fun getLocalProductId() {
         viewModel.getLocalId()
     }
-
-
 
 
 }

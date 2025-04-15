@@ -28,8 +28,8 @@ Aspectos relevantes de la solución implementada
 
 Se implementa solución del problema con una app desarrollada 100% kotlin utilizando clean arquitecture, con patron de arquitectura MVVM, se utilizan 3 capas UI,Dominio, Data
 en la capa de UI la gestión de la vista la realiza viewModel controlando estados y actualizaciones atravez de observers con live data mediante estados definidos con Sealed clases, 
-el viewModel a su ves implementa diferentes casos de uso para obtener y gestionar la data, estos casos de uso obtienen de los respositorios seleccionan el origen de datos 
-para mostrar la información y gestionar segun sea requerido, se tienen casos de uso donde el usuario por ejemplo se puede agregar productos favoritos los cuales van siendo marcados, para 
+el viewModel a su ves implementa diferentes casos de uso para obtener y gestionar la data, estos casos de uso obtienen de los respositorios la información de el origen de datos 
+orquestado por el repositorio segun el caso, se tienen consultas directas a la db, y al api asi como consultas que pueden venir de una u otra fuente de datos para ser mostrada y gestionada segun sea requerido, se tienen casos de uso donde el usuario por ejemplo se puede agregar productos favoritos los cuales van siendo marcados, para 
 posteriormente permitir que sus detalles sean consultados en la db implementada con Room, este escenario de favoritos es utilizado para que cuando el usuario tenga fallos de conexión le permita
 visualizarlos y navegar en sus detalles. 
 
